@@ -1,0 +1,14 @@
+{
+  "devDependencies": {
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "concurrently": "^7.0.0",
+    "nodemon": "^2.0.15"
+  },
+  "scripts": {
+    "start:build": "tsc -w",
+    "start:run": "nodemon build/index.js",
+    "start": "concurrently npm:start:*"
+  }
+}

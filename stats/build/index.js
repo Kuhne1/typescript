@@ -1,0 +1,23 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const MatchReader_1 = require("./MatchReader");
+const csvFileReader_1 = require("./csvFileReader");
+const WinsAnalysis_1 = require("./analyzers/WinsAnalysis");
+const Summary_1 = require("./Summary");
+const ConsoleReport_1 = require("./reportTargets/ConsoleReport");
+const HtmlReport_1 = require("./reportTargets/HtmlReport");
+//Create an object that satisfies the "DataReader" interface
+const csvFileReader = new csvFileReader_1.CsvFileReader("football.csv");
+const matchReader = new MatchReader_1.MatchReader(csvFileReader);
+matchReader.load();
+const staticMatchReader = MatchReader_1.MatchReader.fromCsv("football.csv");
+staticMatchReader.load();
+const summaryConsole = new Summary_1.Summary(new WinsAnalysis_1.WinsAnalysis("Liverpool"), new ConsoleReport_1.ConsoleReport());
+const summaryHtml = new Summary_1.Summary(new WinsAnalysis_1.WinsAnalysis("Liverpool"), new HtmlReport_1.HtmlReport());
+const staticHtmlSummary = Summary_1.Summary.winsAnalysisWithHtmlReport("Liverpool");
+staticHtmlSummary.buildAndPrintReport(staticMatchReader.matches);
+const staticConsoleSummary = Summary_1.Summary.winsAnalysisWithConsole("Liverpool");
+staticConsoleSummary.buildAndPrintReport(staticMatchReader.matches);
+//summaryHtml.buildAndPrintReport(matchReader.matches);
+//summaryConsole.buildAndPrintReport(matchReader.matches);
+staticMatchReader;
